@@ -95,6 +95,7 @@
     }
     .center .subheading, .subheading.center { margin-left: auto; margin-right: auto; text-align: center; }
     .center { text-align: center; }
+    .label.center { display: block; text-align: center; }
 
     /* ── BUTTONS ─────────────────────────────────── */
     .btn {
@@ -324,7 +325,7 @@
     }
     .hero-sub em { color: rgba(255,255,255,0.88); font-style: normal; }
 
-    .trust-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+    .trust-chips { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
     .trust-chip {
       background: rgba(184,132,30,0.1);
       border: 1px solid rgba(184,132,30,0.25);
@@ -344,7 +345,7 @@
     .hero-links a:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.35); opacity: 1; }
 
     /* Hero photo */
-    .hero-photo { position: relative; z-index: 1; }
+    .hero-photo { position: relative; z-index: 1; margin-top: -48px; }
     .hero-photo-wrap {
       position: relative;
       /* Teal ambient glow behind the figure */
@@ -567,6 +568,32 @@
     }
     .shot-cap { font-size: 0.68rem; color: rgba(255,255,255,0.52); text-align: center; margin-top: 5px; line-height: 1.4; }
 
+    /* ── CS3 CATEGORY THUMBNAILS ──────────────────── */
+    .cs3-grid { gap: 12px; }
+    .cs3-thumb-wrap { display: flex; flex-direction: column; }
+    .cs3-thumb { cursor: pointer; position: relative; }
+    .cs3-thumb img {
+      width: 100%; height: 110px;
+      object-fit: cover; display: block;
+      transition: transform 0.45s var(--ease);
+    }
+    .cs3-thumb:hover img { transform: scale(1.04); }
+    .cs3-thumb-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(6,13,25,0.92) 0%, rgba(6,13,25,0.4) 70%, transparent 100%);
+      padding: 22px 10px 8px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .cs3-thumb-title {
+      font-size: 0.64rem; font-weight: 700;
+      color: #fff; text-transform: uppercase; letter-spacing: 0.7px;
+      line-height: 1.3;
+    }
+    .cs3-thumb-count {
+      font-size: 0.58rem; font-weight: 500;
+      color: var(--accent); letter-spacing: 0.4px;
+    }
+
     /* ── GALLERY ──────────────────────────────────── */
     #gallery { background: #060D19; }
 
@@ -727,6 +754,112 @@
     .footer-text a:hover { color: #6A8EA8; opacity: 1; }
     .sep { margin: 0 10px; }
 
+    /* ── LIGHTBOX ────────────────────────────────── */
+    .lb-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(4,9,18,0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .lb-overlay.open { display: flex; }
+
+    .lb-dialog {
+      position: relative;
+      max-width: min(1300px, 96vw);
+      max-height: 96vh;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 14px;
+    }
+
+    .lb-img-wrap {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      max-height: calc(96vh - 60px);
+    }
+    .lb-img-wrap img {
+      max-width: 100%;
+      max-height: calc(96vh - 60px);
+      width: auto; height: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      display: block;
+    }
+    .lb-img-wrap iframe {
+      width: min(1060px, 90vw);
+      height: calc(92vh - 120px);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      background: #fff;
+      display: block;
+    }
+    /* Badge shown on iframe slides so viewers know it's interactive */
+    .lb-html-badge {
+      position: absolute; top: 10px; left: 14px;
+      background: rgba(26,127,158,0.85);
+      color: #fff; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .lb-caption-wrap {
+      text-align: center; max-width: 720px; padding: 0 12px;
+    }
+    .lb-caption-title {
+      font-size: 0.88rem; font-weight: 600;
+      color: rgba(255,255,255,0.88); margin-bottom: 5px; line-height: 1.5;
+    }
+    .lb-caption-desc {
+      font-size: 0.79rem; color: rgba(255,255,255,0.52); line-height: 1.65;
+    }
+    .lb-caption-title:empty, .lb-caption-desc:empty { display: none; }
+
+    .lb-close {
+      position: fixed; top: 18px; right: 22px;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      z-index: 9001;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.18); }
+    .lb-close svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.8); stroke-width: 2; fill: none; }
+
+    .lb-nav {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, opacity 0.2s;
+      z-index: 9001;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.16); }
+    .lb-nav.hidden { opacity: 0; pointer-events: none; }
+    .lb-nav svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.8); stroke-width: 2; fill: none; }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+
+    .lb-counter {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      font-size: 0.72rem; color: rgba(255,255,255,0.38);
+      letter-spacing: 1px; z-index: 9001;
+    }
+
+    /* Clickable thumbnails */
+    .shot, .gal-img {
+      cursor: zoom-in;
+    }
+
+
     /* ── DIVIDER ──────────────────────────────────── */
     .rule {
       border: none; height: 1px;
@@ -750,11 +883,10 @@
       .hero-network { display: none; }
       #hero::before { background-size: 28px 28px; }
       .hero-inner { grid-template-columns: 1fr; gap: 32px; }
-      .hero-photo { order: -1; }
+      .hero-photo { order: -1; margin-top: 0; }
       .hero-photo-wrap { max-width: 220px; margin: 0 auto; }
       .hero-name { font-size: 2.6rem; line-height: 1.15; }
       .hero-tagline { font-size: 1rem; }
-      .trust-chips { flex-wrap: wrap; justify-content: flex-start; gap: 8px; }
       .trust-chip { font-size: 0.72rem; padding: 6px 12px; }
       .hero-ctas { flex-wrap: wrap; gap: 12px; }
       .hero-ctas .btn { flex: 1 1 auto; min-width: 140px; text-align: center; justify-content: center; }
@@ -1065,12 +1197,6 @@
           <br><br>
           Based in the Philippines. Available full-time for US, UK, and AU-based teams.
         </p>
-        <div class="trust-chips">
-          <div class="trust-chip">18+ Yrs Corporate Ops — SABIC, Fortune Global 500</div>
-          <div class="trust-chip">Full-Time Remote · US / UK / AU Overlap</div>
-          <div class="trust-chip">Native-level English · Zero Communication Gap</div>
-          <div class="trust-chip">Founder · OpsFlowPH Systems Lab</div>
-        </div>
         <div class="hero-ctas">
           <a href="#services" class="btn btn-primary">View My Work ↓</a>
           <a href="https://drive.google.com/file/d/1EUa1eHIS-j2-do6ekOrC1p9Pj2uk1neQ/view?usp=sharing" class="btn btn-ghost" target="_blank">Download Portfolio PDF</a>
@@ -1085,6 +1211,12 @@
       <div class="hero-photo" data-reveal data-delay="2">
         <div class="hero-photo-wrap">
           <img src="images/headshot.png" alt="Ritche Ian Soldevilla">
+        </div>
+        <div class="trust-chips">
+          <div class="trust-chip">18+ Yrs Corporate Ops — SABIC, Fortune Global 500</div>
+          <div class="trust-chip">Full-Time Remote · US / UK / AU Overlap</div>
+          <div class="trust-chip">Native-level English · Zero Communication Gap</div>
+          <div class="trust-chip">Founder · OpsFlowPH Systems Lab</div>
         </div>
       </div>
 
@@ -1174,7 +1306,7 @@
         <div class="label">Featured Work</div>
         <h2 class="heading">Selected Projects</h2>
         <span class="heading-rule"></span>
-        <p class="subheading">Three projects showing how I approach CRM setup, funnel builds, workflow documentation, and marketing operations — from brief to execution-ready system.</p>
+        <p class="subheading">Selected projects showing how I approach CRM setup, funnel builds, workflow documentation, and marketing operations — from full demo build to execution-ready system.</p>
       </div>
 
       <!-- CS1 -->
@@ -1214,7 +1346,7 @@
             <div class="shots-grid">
               <div>
                 <div class="shot"><img src="images/cs1-1.jpg" alt="Landing page"></div>
-                <p class="shot-cap">Landing page</p>
+                <p class="shot-cap">Funnel overview</p>
               </div>
               <div>
                 <div class="shot"><img src="images/cs1-2.jpg" alt="Automation workflow"></div>
@@ -1233,56 +1365,59 @@
         </div>
       </div>
 
-      <!-- CS2 -->
+      <!-- CS2: ClearPath Healthcare Compliance — one unified project -->
       <div class="case-study" data-reveal>
         <div class="cs-bar">
-          <span class="cs-badge cs-badge-audit">Pre-Interview Strategy Audit</span>
-          <span class="cs-bar-note">Healthcare Compliance Organization — anonymized</span>
+          <span class="cs-badge cs-badge-demo">Portfolio Demo Build</span>
+          <span class="cs-bar-note">Built in a live GoHighLevel sub-account · Healthcare Compliance · Four-board system</span>
         </div>
         <div class="cs-body">
           <div class="cs-text">
             <div class="cs-num">02</div>
-            <h3 class="cs-title">Healthcare Compliance Organization — Strategy Audit &amp; Workflow Documentation</h3>
+            <h3 class="cs-title">ClearPath Healthcare Compliance · Demo Sub-Account Build</h3>
             <div class="cs-row">
               <div class="cs-lbl">Situation</div>
-              <p class="cs-val">A healthcare compliance organization had no structured process for moving inquiries from first contact to appointment. Before a role interview, I proactively audited their website and workflow gaps — unprompted — to demonstrate how I would approach the problem.</p>
+              <p class="cs-val">Built a complete GoHighLevel sub-account for a healthcare compliance brand — covering brand identity, front-end funnel, CRM pipeline, workflow automation, and a pre-interview SDR strategy audit for a related healthcare compliance organization. Documented as four coordinated portfolio boards: brand &amp; funnel experience, CRM workflow build, lead operations ecosystem, and SDR strategy snapshot.</p>
             </div>
             <div class="cs-row">
               <div class="cs-lbl">What Was Built</div>
-              <p class="cs-val">Produced a website and workflow audit, a strategy snapshot outlining gaps and recommendations, an inquiry-to-appointment workflow diagram, and CRM pipeline stage recommendations — all developed independently to show how I think through a marketing operations problem.</p>
+              <p class="cs-val">Landing page, thank-you and booking page, branding package, multi-stage CRM pipeline, custom tags and fields, assessment submission workflow, booking and no-booking follow-ups, internal task automation, full lead operations ecosystem map, and a proactive pre-interview SDR strategy audit for a healthcare compliance organization.</p>
             </div>
             <div class="cs-row">
               <div class="cs-lbl">Tools Used</div>
               <div class="cs-chips">
-                <span class="cs-chip">Notion</span>
+                <span class="cs-chip">GoHighLevel</span>
+                <span class="cs-chip">Canva</span>
+                <span class="cs-chip">CRM Pipeline Design</span>
+                <span class="cs-chip">Workflow Automation</span>
                 <span class="cs-chip">Google Docs</span>
-                <span class="cs-chip">Ahrefs</span>
-                <span class="cs-chip">GA4</span>
+                <span class="cs-chip">Brand Strategy</span>
+                <span class="cs-chip">SDR Operations</span>
               </div>
             </div>
             <div class="cs-row">
               <div class="cs-lbl">What It Proves</div>
-              <p class="cs-val">Strategic thinking, initiative, and the ability to audit an organization's workflow and translate it into documented recommendations — without needing a client brief to get started.</p>
+              <p class="cs-val">End-to-end GHL capability — from brand and funnel through pipeline, automation, and operations documentation — plus the initiative to audit a role's operational needs before being formally onboarded.</p>
             </div>
           </div>
           <div class="cs-shots">
-            <div class="cs-shots-lbl">Screenshots — client branding blurred</div>
+            <div class="cs-shots-lbl">Four Portfolio Boards</div>
             <div class="shots-grid">
               <div>
-                <div class="shot"><img src="images/cs2-1.jpg" alt="Strategy snapshot"></div>
-                <p class="shot-cap">Strategy snapshot</p>
+                <div class="shot demo"><img src="images/clearpath-board-01-brand-funnel-experience.png" alt="Board 01 — Brand &amp; Funnel Experience"></div>
+                <p class="shot-cap">01 · Brand &amp; Funnel Experience</p>
               </div>
               <div>
-                <div class="shot"><img src="images/cs2-2.jpg" alt="Workflow diagram"></div>
-                <p class="shot-cap">Workflow diagram</p>
+                <div class="shot demo"><img src="images/clearpath-board-02-crm-workflow-build.png" alt="Board 02 — CRM Workflow Build"></div>
+                <p class="shot-cap">02 · CRM Workflow Build</p>
               </div>
               <div>
-                <div class="shot"><img src="images/cs2-3.jpg" alt="CRM pipeline stages"></div>
-                <p class="shot-cap">CRM stages</p>
+                <div class="shot demo"><img src="images/clearpath-board-03-lead-operations-ecosystem.png" alt="Board 03 — Lead Operations Ecosystem"></div>
+                <p class="shot-cap">03 · Lead Operations Ecosystem</p>
               </div>
               <div>
-                <div class="shot"><img src="images/cs2-4.jpg" alt="Audit findings"></div>
-                <p class="shot-cap">Audit findings</p>
+                <div class="shot"><img src="images/clearpath-board-04-pre-interview-sdr-strategy-audit.png" alt="Board 04 — SDR Strategy Audit"></div>
+                <p class="shot-cap">04 · SDR Strategy Audit</p>
               </div>
             </div>
           </div>
@@ -1301,11 +1436,11 @@
             <h3 class="cs-title">Dental Practice — Marketing Operations Execution Plan</h3>
             <div class="cs-row">
               <div class="cs-lbl">Situation</div>
-              <p class="cs-val">A consulting agency provided a client brief for a dental practice with no structured marketing operations in place. The practice needed a clear execution plan covering campaign strategy, content, CRM stages, and workflow — organized into a format the team could act on.</p>
+              <p class="cs-val">A dental practice needed a clearer way to manage marketing execution across agency campaigns, GHL, funnel activity, front desk handoffs, and leadership reporting. The main challenge was not only generating leads, but understanding where qualified leads were getting delayed, dropped, or failing to convert into booked and shown patients.</p>
             </div>
             <div class="cs-row">
               <div class="cs-lbl">What Was Built</div>
-              <p class="cs-val">Developed a 13-slide Marketing Operations Execution Plan covering campaign structure, content calendar, CRM pipeline stages, patient workflow documentation, and a campaign tracking framework — presented in a format ready for team handoff and implementation.</p>
+              <p class="cs-val">Developed a 13-slide Marketing Operations Execution Plan that mapped the patient journey, diagnosed common conversion friction points, defined the coordination layer, and created practical tracker frameworks for agency deliverables, funnel QA, front desk experience, conversion issues, action items, and weekly leadership summaries.</p>
             </div>
             <div class="cs-row">
               <div class="cs-lbl">Tools Used</div>
@@ -1318,28 +1453,86 @@
             </div>
             <div class="cs-row">
               <div class="cs-lbl">What It Proves</div>
-              <p class="cs-val">The ability to take an agency brief, translate it into a structured marketing operations plan, and produce a presentation-quality deliverable that is clear, organized, and implementation-ready.</p>
+              <p class="cs-val">The ability to translate an agency brief into a structured marketing operations system that connects strategy, CRM/funnel visibility, team accountability, and leadership decision-making. The deliverable shows how marketing activity can be organized into clear trackers, QA checks, action items, and reporting views that support better patient conversion.</p>
             </div>
           </div>
           <div class="cs-shots">
-            <div class="cs-shots-lbl">Screenshots — clinic name blurred</div>
-            <div class="shots-grid">
-              <div>
-                <div class="shot"><img src="images/cs3-1.jpg" alt="Execution plan cover"></div>
-                <p class="shot-cap">Execution plan</p>
+            <div class="cs-shots-lbl">Case Study Boards — 13-Slide Lightbox</div>
+            <div class="shots-grid cs3-grid">
+
+              <!-- Category 1: Conversion Diagnosis -->
+              <div class="cs3-thumb-wrap">
+                <div class="shot cs3-thumb"
+                  data-lb-category="Conversion Journey &amp; Friction Diagnosis"
+                  data-lb-slides='[
+                    {"src":"assets/project-03-dental/1.png","title":"Slide 1 — Title Slide","desc":"Conversion Journey &amp; Friction Diagnosis"},
+                    {"src":"assets/project-03-dental/2.png","title":"Slide 2 — Patient Journey","desc":"Conversion Journey &amp; Friction Diagnosis"},
+                    {"src":"assets/project-03-dental/3.png","title":"Slide 3 — The Business Problem","desc":"Conversion Journey &amp; Friction Diagnosis"},
+                    {"src":"assets/project-03-dental/4.png","title":"Slide 4 — Where Conversion Can Break","desc":"Conversion Journey &amp; Friction Diagnosis"}
+                  ]'>
+                  <img src="assets/project-03-dental/4.png" alt="Where Conversion Can Break — dental patient funnel friction diagnosis">
+                  <div class="cs3-thumb-overlay">
+                    <span class="cs3-thumb-title">Conversion Diagnosis</span>
+                    <span class="cs3-thumb-count">4 slides</span>
+                  </div>
+                </div>
+                <p class="shot-cap">Mapping where qualified dental leads stop becoming booked and shown patients.</p>
               </div>
-              <div>
-                <div class="shot"><img src="images/cs3-2.jpg" alt="Patient workflow"></div>
-                <p class="shot-cap">Patient workflow</p>
+
+              <!-- Category 2: Coordination System -->
+              <div class="cs3-thumb-wrap">
+                <div class="shot cs3-thumb"
+                  data-lb-category="Marketing Ops Coordination System"
+                  data-lb-slides='[
+                    {"src":"assets/project-03-dental/5.png","title":"Slide 5 — The Visibility and Coordination Layer","desc":"Marketing Ops Coordination System"},
+                    {"src":"assets/project-03-dental/6.png","title":"Slide 6 — Operating System View","desc":"Marketing Ops Coordination System"}
+                  ]'>
+                  <img src="assets/project-03-dental/5.png" alt="The Visibility and Coordination Layer — dental marketing ops system">
+                  <div class="cs3-thumb-overlay">
+                    <span class="cs3-thumb-title">Coordination System</span>
+                    <span class="cs3-thumb-count">2 slides</span>
+                  </div>
+                </div>
+                <p class="shot-cap">Central visibility layer connecting agencies, GHL, front desk, trackers, and leadership.</p>
               </div>
-              <div>
-                <div class="shot"><img src="images/cs3-3.jpg" alt="Campaign tracker"></div>
-                <p class="shot-cap">Campaign tracker</p>
+
+              <!-- Category 3: Trackers & QA -->
+              <div class="cs3-thumb-wrap">
+                <div class="shot cs3-thumb"
+                  data-lb-category="Execution Trackers &amp; QA Framework"
+                  data-lb-slides='[
+                    {"src":"assets/project-03-dental/7.png","title":"Slide 7 — Agency Deliverables Tracker","desc":"Execution Trackers &amp; QA Framework"},
+                    {"src":"assets/project-03-dental/8.png","title":"Slide 8 — Lead Funnel QA Checklist","desc":"Execution Trackers &amp; QA Framework"},
+                    {"src":"assets/project-03-dental/9.png","title":"Slide 9 — Front Desk / Patient Experience Log","desc":"Execution Trackers &amp; QA Framework"},
+                    {"src":"assets/project-03-dental/10.png","title":"Slide 10 — Conversion Issue Tracker","desc":"Execution Trackers &amp; QA Framework"},
+                    {"src":"assets/project-03-dental/11.png","title":"Slide 11 — Task / Action Item Tracker","desc":"Execution Trackers &amp; QA Framework"}
+                  ]'>
+                  <img src="assets/project-03-dental/10.png" alt="Conversion Issue Tracker — dental marketing execution framework">
+                  <div class="cs3-thumb-overlay">
+                    <span class="cs3-thumb-title">Trackers &amp; QA</span>
+                    <span class="cs3-thumb-count">5 slides</span>
+                  </div>
+                </div>
+                <p class="shot-cap">Trackers for agency deliverables, funnel QA, patient experience, conversion issues, and action items.</p>
               </div>
-              <div>
-                <div class="shot"><img src="images/cs3-4.jpg" alt="CRM stages"></div>
-                <p class="shot-cap">CRM stages</p>
+
+              <!-- Category 4: Leadership Handoff -->
+              <div class="cs3-thumb-wrap">
+                <div class="shot cs3-thumb"
+                  data-lb-category="Leadership Summary &amp; Action Handoff"
+                  data-lb-slides='[
+                    {"src":"assets/project-03-dental/12.png","title":"Slide 12 — Weekly Leadership Summary","desc":"Leadership Summary &amp; Action Handoff"},
+                    {"src":"assets/project-03-dental/13.png","title":"Slide 13 — Closing: Conversion Visibility","desc":"Leadership Summary &amp; Action Handoff"}
+                  ]'>
+                  <img src="assets/project-03-dental/12.png" alt="Weekly Leadership Summary — dental marketing reporting and action handoff">
+                  <div class="cs3-thumb-overlay">
+                    <span class="cs3-thumb-title">Leadership Handoff</span>
+                    <span class="cs3-thumb-count">2 slides</span>
+                  </div>
+                </div>
+                <p class="shot-cap">Turning tracker inputs into weekly decisions, priorities, and accountable next actions.</p>
               </div>
+
             </div>
           </div>
         </div>
@@ -1375,7 +1568,7 @@
           <div class="gal-desc">SOPs, workflow diagrams, strategy snapshots, and process documentation developed for CRM, funnel, and marketing operations work.</div>
         </div>
         <div class="gal-grid">
-          <div class="gal-img"><img src="images/g2a.jpg" alt="Strategy snapshot"><div class="gal-cap">Marketing strategy snapshot — workflow gap analysis</div></div>
+          <div class="gal-img"><a href="docs/ClearPath-Healthcare-Compliance-Workflow-Gap-Analysis.html" target="_blank" rel="noopener"><img src="images/g2a.jpg" alt="Strategy snapshot"></a><div class="gal-cap">Marketing strategy snapshot — workflow gap analysis</div></div>
           <div class="gal-img"><img src="images/g2b.jpg" alt="Process map"><div class="gal-cap">Lead workflow — inquiry to appointment</div></div>
           <div class="gal-img"><img src="images/g2c.jpg" alt="OpsFlowPH architecture"><div class="gal-cap">Service system architecture — OpsFlowPH</div></div>
         </div>
@@ -1509,6 +1702,31 @@
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lb-overlay" id="lb-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lb-close" id="lb-close" aria-label="Close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lb-nav lb-prev" id="lb-prev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lb-nav lb-next" id="lb-next" aria-label="Next image">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+    <div class="lb-dialog">
+      <div class="lb-img-wrap" id="lb-img-wrap">
+        <img id="lb-img" src="" alt="">
+        <iframe id="lb-frame" src="" style="display:none;" allowfullscreen></iframe>
+        <span class="lb-html-badge" id="lb-html-badge" style="display:none;">Live Preview</span>
+      </div>
+      <div class="lb-caption-wrap">
+        <div class="lb-caption-title" id="lb-caption-title"></div>
+        <div class="lb-caption-desc"  id="lb-caption-desc"></div>
+      </div>
+    </div>
+    <div class="lb-counter" id="lb-counter"></div>
+  </div>
+
   <!-- FOOTER -->
   <footer id="footer">
     <p class="footer-text">
@@ -1563,6 +1781,161 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+    // Lightbox — grouped per thumbnail
+    (function () {
+      const overlay   = document.getElementById('lb-overlay');
+      const lbImg     = document.getElementById('lb-img');
+      const lbFrame   = document.getElementById('lb-frame');
+      const lbBadge   = document.getElementById('lb-html-badge');
+      const lbTitle   = document.getElementById('lb-caption-title');
+      const lbDesc    = document.getElementById('lb-caption-desc');
+      const lbClose   = document.getElementById('lb-close');
+      const lbPrev    = document.getElementById('lb-prev');
+      const lbNext    = document.getElementById('lb-next');
+      const lbCounter = document.getElementById('lb-counter');
+
+      // slides for the currently open thumbnail group
+      let slides  = [];
+      let current = 0;
+
+      function isHTML(src) {
+        return typeof src === 'string' && src.toLowerCase().endsWith('.html');
+      }
+
+      function buildSlides(el) {
+        // Multi-slide: data-lb-slides='[{"src":"","title":"","desc":""},...]'
+        const raw = el.getAttribute('data-lb-slides');
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length) return parsed;
+          } catch (e) {}
+        }
+        // Single-image fallback
+        const img   = el.querySelector('img');
+        const src   = img ? img.src : '';
+        // .shot-cap lives outside .shot as a sibling; .gal-cap lives inside .gal-img
+        const capEl = el.querySelector('.gal-cap') || el.parentElement.querySelector('.shot-cap');
+        const title = capEl ? capEl.textContent.trim() : (img ? img.alt : '');
+        return [{ src, title, desc: '' }];
+      }
+
+      function open(el) {
+        slides  = buildSlides(el);
+        current = 0;
+        show();
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        // Clear iframe src to stop any running content
+        lbFrame.src = '';
+        slides = [];
+      }
+
+      function show() {
+        const item = slides[current];
+        const src  = item.src || '';
+        const html = isHTML(src);
+
+        // Toggle between image and iframe
+        if (html) {
+          lbImg.style.display   = 'none';
+          lbFrame.style.display = 'block';
+          lbBadge.style.display = 'block';
+          lbFrame.src = src;
+        } else {
+          lbFrame.style.display = 'none';
+          lbFrame.src           = '';
+          lbBadge.style.display = 'none';
+          lbImg.style.display   = 'block';
+          lbImg.src = src;
+          lbImg.alt = item.title || '';
+        }
+
+        lbTitle.textContent = item.title || '';
+        lbDesc.textContent  = item.desc  || '';
+        const multi = slides.length > 1;
+        lbCounter.textContent = multi ? (current + 1) + ' / ' + slides.length : '';
+        lbPrev.classList.toggle('hidden', current === 0);
+        lbNext.classList.toggle('hidden', current === slides.length - 1);
+      }
+
+      function prev() { if (current > 0)                  { current--; show(); } }
+      function next() { if (current < slides.length - 1)  { current++; show(); } }
+
+      document.querySelectorAll('.shot, .gal-img').forEach(el => {
+        el.addEventListener('click', () => open(el));
+      });
+
+      lbClose.addEventListener('click', close);
+      lbPrev.addEventListener('click',  e => { e.stopPropagation(); prev(); });
+      lbNext.addEventListener('click',  e => { e.stopPropagation(); next(); });
+      overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+      document.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('open')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowLeft')  prev();
+        if (e.key === 'ArrowRight') next();
+      });
+    })();
+  </script>
+
+  <script>
+    /* ── Asset protection ──────────────────────────────────────────
+       Blocks casual downloading of images and HTML assets.
+       PDF link (Google Drive) is explicitly excluded.
+    ────────────────────────────────────────────────────────────── */
+    (function () {
+      const isPDF = el => {
+        const a = el.closest('a');
+        return a && (a.href.includes('.pdf') || a.href.includes('drive.google.com'));
+      };
+
+      // 1. Block right-click context menu on images and non-PDF links
+      document.addEventListener('contextmenu', function (e) {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'image') {
+          e.preventDefault();
+          return;
+        }
+        const a = e.target.closest('a');
+        if (a && !isPDF(e.target)) {
+          e.preventDefault();
+        }
+      });
+
+      // 2. Block drag-to-save on all images
+      document.addEventListener('dragstart', function (e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+        }
+      });
+
+      // 3. Block Ctrl+S / Cmd+S (Save Page)
+      document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+        }
+      });
+
+      // 4. Apply CSS protection to all images via JS
+      document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('draggable', 'false');
+        img.style.webkitUserDrag = 'none';
+        img.style.userSelect = 'none';
+        img.style.pointerEvents = 'none';
+        // Re-enable pointer events only on images inside clickable links
+        const parent = img.closest('a');
+        if (parent) {
+          img.style.pointerEvents = 'auto';
+        }
+      });
+    })();
   </script>
 
 </body>

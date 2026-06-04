@@ -1,0 +1,22 @@
+# Cloudflare Pages/Workers — Response Headers
+# Prevents browser "Save As" prompt on images and HTML assets.
+# The Portfolio PDF is on Google Drive (external) — no rule needed here.
+
+/images/*
+  Content-Disposition: inline
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=3600
+
+/assets/*
+  Content-Disposition: inline
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=3600
+
+/docs/*.html
+  Content-Disposition: inline
+  X-Robots-Tag: noindex, nosnippet
+  Cache-Control: no-store
+
+/docs/*.css
+  Content-Disposition: inline
+  Cache-Control: no-store
