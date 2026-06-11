@@ -1,0 +1,8 @@
+.git/
+.github/
+.claude/
+.wrangler/
+.gitignore
+.wranglerignore
+.assetsignore
+wrangler.jsonc
