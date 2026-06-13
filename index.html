@@ -808,6 +808,24 @@
       background: #fff;
       display: block;
     }
+    /* HTML "Live Preview" slides: the embedded doc is a fixed 1080px-wide
+       design, so we scale it down to fit (esp. on mobile) and clip to a box. */
+    .lb-img-wrap.is-frame {
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      background: #fff;
+    }
+    .lb-img-wrap.is-frame iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: auto; height: auto;
+      transform-origin: top left;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
     /* Badge shown on iframe slides so viewers know it's interactive */
     .lb-html-badge {
       position: absolute; top: 10px; left: 14px;
@@ -1821,6 +1839,7 @@
     // Lightbox — grouped per thumbnail
     (function () {
       const overlay   = document.getElementById('lb-overlay');
+      const wrap      = document.getElementById('lb-img-wrap');
       const lbImg     = document.getElementById('lb-img');
       const lbFrame   = document.getElementById('lb-frame');
       const lbBadge   = document.getElementById('lb-html-badge');
@@ -1837,6 +1856,31 @@
 
       function isHTML(src) {
         return typeof src === 'string' && src.toLowerCase().endsWith('.html');
+      }
+
+      // The embedded HTML docs are fixed 1080px-wide designs. Scale them down
+      // to fit the available width so the whole layout shows (no zoom/crop),
+      // and clip to a viewport-sized box that scrolls internally.
+      const DOC_W = 1080;
+      function fitFrame() {
+        const item = slides[current];
+        if (!item || !isHTML(item.src)) return;
+        const availW = Math.min(window.innerWidth * 0.94, DOC_W);
+        const availH = window.innerHeight * 0.80;
+        const scale  = availW / DOC_W;
+        wrap.style.width      = availW + 'px';
+        wrap.style.height     = availH + 'px';
+        lbFrame.style.width   = DOC_W + 'px';
+        lbFrame.style.height  = (availH / scale) + 'px';
+        lbFrame.style.transform = 'scale(' + scale + ')';
+      }
+      function resetFrame() {
+        wrap.classList.remove('is-frame');
+        wrap.style.width = '';
+        wrap.style.height = '';
+        lbFrame.style.width = '';
+        lbFrame.style.height = '';
+        lbFrame.style.transform = '';
       }
 
       function buildSlides(el) {
@@ -1870,6 +1914,7 @@
         document.body.style.overflow = '';
         // Clear iframe src to stop any running content
         lbFrame.src = '';
+        resetFrame();
         slides = [];
       }
 
@@ -1884,7 +1929,10 @@
           lbFrame.style.display = 'block';
           lbBadge.style.display = 'block';
           lbFrame.src = src;
+          wrap.classList.add('is-frame');
+          fitFrame();
         } else {
+          resetFrame();
           lbFrame.style.display = 'none';
           lbFrame.src           = '';
           lbBadge.style.display = 'none';
@@ -1918,6 +1966,11 @@
         if (e.key === 'Escape')     close();
         if (e.key === 'ArrowLeft')  prev();
         if (e.key === 'ArrowRight') next();
+      });
+
+      // Re-fit the scaled preview on resize / orientation change.
+      window.addEventListener('resize', () => {
+        if (overlay.classList.contains('open')) fitFrame();
       });
     })();
   </script>
