@@ -1038,5 +1038,27 @@
   </div>
 </div>
 
+<div class="ofp-preview-watermark" aria-hidden="true"></div>
+<style>
+  body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+  body img { -webkit-user-drag: none; user-drag: none; }
+  .ofp-preview-watermark {
+    position: fixed; inset: 0; z-index: 99999; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='210'><text x='10' y='120' font-family='Inter, Arial, sans-serif' font-size='19' font-weight='600' fill='%23888888' fill-opacity='0.12' transform='rotate(-28 10 120)'>OpsFlowPH / Preview</text></svg>");
+    background-repeat: repeat;
+  }
+  @media print { body { display: none !important; } }
+</style>
+<script>
+(function () {
+  var stop = function (e) { e.preventDefault(); };
+  document.addEventListener('contextmenu', stop);
+  document.addEventListener('dragstart', stop);
+  document.addEventListener('keydown', function (e) {
+    var k = (e.key || '').toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && (k === 's' || k === 'u' || k === 'p')) e.preventDefault();
+  });
+})();
+</script>
 </body>
 </html>
