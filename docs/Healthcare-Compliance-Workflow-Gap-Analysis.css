@@ -1,0 +1,1543 @@
+/* ============================================================
+   OpsFlowPH — Workflow Gap Analysis
+   Access Plus Health
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:   #083B84;
+  --teal:   #14B8B1;
+  --cyan:   #20B7F2;
+  --white:  #FFFFFF;
+  --gray:   #F4F6F8;
+  --gray2:  #E8ECF2;
+  --dark:   #041E4A;
+  --dark2:  #031530;
+  --text:   #1A2A4A;
+  --muted:  #5A6F8A;
+  --risk:   #E8534A;
+  --fix:    #14B8B1;
+  --benefit:#20B7F2;
+}
+
+/* ============================================================
+   BODY & DOCUMENT LAYOUT
+   ============================================================ */
+body {
+  background: #0D1B2E;
+  font-family: 'Inter', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 48px 24px;
+}
+
+/* Dark pages need tighter vertical rhythm to stay within 1920px */
+.page-dark .page-content {
+  gap: 24px;
+}
+
+/* ============================================================
+   STRATEGY PAGE — ARTBOARD
+   ============================================================ */
+.strategy-page {
+  width: 1080px;
+  min-height: 1920px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Light pages */
+.page-light {
+  background: var(--gray);
+}
+
+/* Dark pages */
+.page-dark {
+  background: var(--dark);
+}
+
+/* ============================================================
+   BACKGROUND ELEMENTS
+   ============================================================ */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(32, 183, 242, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32, 183, 242, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-glow-tl {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(20, 184, 177, 0.18) 0%, transparent 70%);
+  top: -150px;
+  left: -150px;
+}
+
+.bg-glow-br {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(8, 59, 132, 0.4) 0%, transparent 70%);
+  bottom: -200px;
+  right: -200px;
+}
+
+/* ============================================================
+   ACCENT BAR (light pages top)
+   ============================================================ */
+.page-accent-bar {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--teal) 50%, var(--cyan) 100%);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   PAGE HEADERS
+   ============================================================ */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 72px 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header-dark {
+  padding: 40px 72px 0;
+}
+
+.page-section-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.page-section-label-dark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.wordmark-small {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.06em;
+}
+
+.wordmark-small-dark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   PAGE CONTENT WRAPPER
+   ============================================================ */
+.page-content {
+  flex: 1;
+  padding: 52px 72px 40px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+}
+
+.section-title-dark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--teal);
+  margin-top: -16px;
+}
+
+.body-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.body-text-dark {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.78);
+}
+
+/* ============================================================
+   PAGE FOOTERS
+   ============================================================ */
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 72px;
+  border-top: 1px solid var(--gray2);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.page-footer-dark {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 72px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.tagline-small {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.tagline-small-dark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
+}
+
+.page-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+}
+
+.page-num-dark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+}
+
+
+/* ============================================================
+   PAGE 01 — COVER
+   ============================================================ */
+.cover-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 44px 80px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.wordmark {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.08em;
+}
+
+.cover-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cover-logo-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--white);
+  padding: 4px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Large icon in cover center */
+.cover-icon-large {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cover-icon-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 20px;
+  background: var(--white);
+  padding: 8px;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.cover-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+}
+
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  position: relative;
+  z-index: 2;
+  gap: 26px;
+}
+
+.cover-label-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(20, 184, 177, 0.15);
+  border: 1px solid rgba(20, 184, 177, 0.35);
+  color: var(--teal);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.cover-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 84px;
+  font-weight: 900;
+  line-height: 1.0;
+  color: var(--white);
+  letter-spacing: -0.03em;
+}
+
+.cover-title span {
+  color: var(--teal);
+}
+
+.cover-client-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cover-client-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+}
+
+.cover-client-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.cover-divider {
+  width: 72px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--cyan));
+  border-radius: 2px;
+}
+
+.cover-meta {
+  display: flex;
+  gap: 60px;
+}
+
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cover-meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35);
+}
+
+.cover-meta-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Workflow nodes */
+.cover-nodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 80px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.node {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(20, 184, 177, 0.25);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+}
+
+.node-icon {
+  font-size: 10px;
+  color: var(--teal);
+}
+
+.node-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--cyan));
+  min-width: 20px;
+  opacity: 0.4;
+}
+
+.cover-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 80px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  z-index: 2;
+}
+
+.tagline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+
+
+/* ============================================================
+   PAGE 02 — EXECUTIVE SUMMARY
+   ============================================================ */
+.exec-highlight-card {
+  background: linear-gradient(135deg, rgba(8,59,132,0.08) 0%, rgba(20,184,177,0.08) 100%);
+  border: 1.5px solid rgba(20, 184, 177, 0.3);
+  border-radius: 16px;
+  padding: 32px 36px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.exec-highlight-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.exec-highlight-card p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.exec-highlight-card strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.goal-callout {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 36px 40px;
+}
+
+.goal-callout-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+
+.goal-callout-text {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--white);
+}
+
+.goal-callout-text strong {
+  color: var(--cyan);
+}
+
+.stat-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.stat-card {
+  flex: 1;
+  background: var(--white);
+  border: 1.5px solid var(--gray2);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+
+/* ============================================================
+   PAGE 03 — CORE WORKFLOW PROBLEM
+   ============================================================ */
+.checklist-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+}
+
+.diagnostic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.diagnostic-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(20, 184, 177, 0.2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.diag-check {
+  width: 36px;
+  height: 36px;
+  background: rgba(20, 184, 177, 0.15);
+  border: 1.5px solid var(--teal);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--teal);
+  flex-shrink: 0;
+}
+
+.diag-text {
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.82);
+  font-weight: 500;
+}
+
+.insight-banner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 30px 36px;
+}
+
+.insight-banner-left, .insight-banner-right {
+  flex: 1;
+}
+
+.insight-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 8px;
+}
+
+.insight-val {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.4;
+}
+
+.insight-banner-right .insight-val {
+  color: var(--teal);
+}
+
+.insight-arrow {
+  font-size: 32px;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   PAGE 04 — GAP OVERVIEW
+   ============================================================ */
+.gap-overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.gap-pill {
+  background: var(--white);
+  border: 1.5px solid var(--gray2);
+  border-radius: 14px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.gap-pill::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--teal), var(--cyan));
+}
+
+.gap-pill-full {
+  grid-column: 1 / -1;
+}
+
+.gap-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  text-transform: uppercase;
+}
+
+.gap-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.gap-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.leakage-note {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: rgba(232, 83, 74, 0.08);
+  border: 1.5px solid rgba(232, 83, 74, 0.25);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+
+.leakage-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+
+.leakage-text {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   GAP CARDS (pages 05–08)
+   ============================================================ */
+.gap-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray2);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-card-accent {
+  border-color: rgba(20, 184, 177, 0.25);
+}
+
+.gap-card-header {
+  background: var(--navy);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.gap-badge {
+  background: rgba(20, 184, 177, 0.2);
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.gap-badge-lg {
+  display: inline-flex;
+  background: rgba(20, 184, 177, 0.15);
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 8px 20px;
+  border-radius: 100px;
+  margin-bottom: -12px;
+}
+
+.gap-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.gap-section {
+  padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom: 1px solid var(--gray2);
+}
+
+.gap-section:last-child {
+  border-bottom: none;
+}
+
+.gap-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.tag-risk    { background: rgba(232,83,74,0.1);  color: #C0392B; border: 1px solid rgba(232,83,74,0.3); }
+.tag-fix     { background: rgba(20,184,177,0.1); color: var(--teal); border: 1px solid rgba(20,184,177,0.3); }
+.tag-benefit { background: rgba(32,183,242,0.1); color: var(--navy); border: 1px solid rgba(32,183,242,0.3); }
+
+.gap-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* Checklist items */
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.checklist-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 20px;
+}
+
+.ci {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.ci::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+/* Segment tags */
+.segment-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.seg-tag {
+  background: var(--gray);
+  border: 1.5px solid var(--gray2);
+  border-radius: 100px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* Note example (Gap 3) */
+.note-example {
+  background: var(--gray);
+  border-radius: 12px;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 32px;
+}
+
+.note-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.note-label.mt { margin-top: 6px; }
+
+.note-bad {
+  font-size: 14px;
+  color: #C0392B;
+  font-style: italic;
+  padding: 8px 14px;
+  background: rgba(232,83,74,0.07);
+  border-radius: 8px;
+  border-left: 3px solid #C0392B;
+}
+
+.note-good {
+  font-size: 14px;
+  color: #0E7E7A;
+  font-style: italic;
+  padding: 8px 14px;
+  background: rgba(20,184,177,0.07);
+  border-radius: 8px;
+  border-left: 3px solid var(--teal);
+}
+
+/* Step list (Gap 5) */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Webinar segment cards (Gap 7) */
+.segment-cards {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.seg-card {
+  flex: 1;
+  min-width: 150px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.seg-card.hot  { background: rgba(255,87,34,0.08); border: 1.5px solid rgba(255,87,34,0.25); }
+.seg-card.warm { background: rgba(255,167,38,0.08); border: 1.5px solid rgba(255,167,38,0.25); }
+.seg-card.cold { background: rgba(32,183,242,0.08); border: 1.5px solid rgba(32,183,242,0.25); }
+.seg-card.cold2{ background: rgba(100,120,160,0.08); border: 1.5px solid rgba(100,120,160,0.2); }
+.seg-card.re   { background: rgba(20,184,177,0.08); border: 1.5px solid rgba(20,184,177,0.25); }
+
+.sc-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.sc-desc {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+
+/* ============================================================
+   PAGE 09 — GAP 9
+   ============================================================ */
+.risk-banner-dark {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+
+.gap-body-dark {
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.75);
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.report-category {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.rc-header {
+  padding: 14px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.rc-lead   { background: linear-gradient(90deg, rgba(8,59,132,0.8), rgba(8,59,132,0.5)); }
+.rc-call   { background: linear-gradient(90deg, rgba(20,184,177,0.5), rgba(20,184,177,0.3)); }
+.rc-prop   { background: linear-gradient(90deg, rgba(32,183,242,0.5), rgba(32,183,242,0.3)); }
+.rc-health { background: linear-gradient(90deg, rgba(232,83,74,0.4), rgba(232,83,74,0.2)); }
+
+.rc-items {
+  padding: 12px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.3;
+}
+
+.rc-item::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+.benefit-dark-callout {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: rgba(20, 184, 177, 0.1);
+  border: 1.5px solid rgba(20, 184, 177, 0.3);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+
+.bdc-icon { font-size: 28px; flex-shrink: 0; }
+
+.bdc-text {
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.85);
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   PAGE 10 — 30-DAY ROADMAP
+   ============================================================ */
+.roadmap-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.roadmap-week {
+  display: flex;
+  gap: 28px;
+  position: relative;
+}
+
+.rw-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.rw-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 3px solid var(--white);
+  box-shadow: 0 0 0 2px var(--teal);
+  flex-shrink: 0;
+  margin-top: 6px;
+  z-index: 1;
+}
+
+.rw-dot-final {
+  background: var(--cyan);
+  box-shadow: 0 0 0 2px var(--cyan);
+}
+
+.rw-line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(180deg, var(--teal), rgba(20,184,177,0.2));
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.roadmap-week-last .rw-line {
+  display: none;
+}
+
+.rw-content {
+  padding-bottom: 36px;
+  flex: 1;
+  padding-top: 2px;
+}
+
+.rw-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+
+.rw-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.rw-items {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.rw-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.rw-item::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gray2);
+  border: 2px solid var(--teal);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.roadmap-week-last .rw-content {
+  padding-bottom: 0;
+}
+
+
+/* ============================================================
+   PAGE 11 — WORKFLOW MAP
+   ============================================================ */
+.workflow-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.wf-node {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 14px 32px;
+  width: 780px;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.wf-start {
+  border-color: rgba(20, 184, 177, 0.5);
+  background: rgba(20, 184, 177, 0.08);
+}
+
+.wf-end {
+  border-color: rgba(32, 183, 242, 0.5);
+  background: rgba(32, 183, 242, 0.08);
+}
+
+.wf-branch {
+  border-style: dashed;
+  border-color: rgba(255,255,255,0.15);
+}
+
+.wf-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.wf-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+
+.wf-arrow {
+  font-size: 18px;
+  color: var(--teal);
+  line-height: 1;
+  padding: 1px 0;
+  opacity: 0.7;
+}
+
+
+/* ============================================================
+   PAGE 12 — KEY METRICS
+   ============================================================ */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.metric-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray2);
+  border-radius: 14px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.metric-card-wide {
+  grid-column: span 4;
+  flex-direction: row;
+  justify-content: center;
+  padding: 16px 28px;
+}
+
+.mc-icon {
+  font-size: 26px;
+}
+
+.mc-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.35;
+}
+
+.prevents-section {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 30px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.prevents-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+}
+
+.prevents-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.prev-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.78);
+}
+
+.prev-item::before {
+  content: '✕';
+  color: rgba(232,83,74,0.8);
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+
+/* ============================================================
+   PAGE 13 — FINAL RECOMMENDATION
+   ============================================================ */
+.page-final {
+  background: linear-gradient(160deg, var(--dark) 0%, #020E24 100%);
+}
+
+.final-content {
+  justify-content: center;
+  gap: 28px;
+}
+
+.final-title {
+  font-size: 52px;
+}
+
+.final-quote-block {
+  background: linear-gradient(135deg, rgba(20,184,177,0.12), rgba(8,59,132,0.12));
+  border: 1.5px solid rgba(20, 184, 177, 0.3);
+  border-radius: 18px;
+  padding: 36px 40px;
+  font-size: 21px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.88);
+}
+
+.final-quote-block strong {
+  color: var(--teal);
+}
+
+.final-body {
+  font-size: 18px;
+}
+
+.final-outcomes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.fo-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.fo-icon {
+  font-size: 32px;
+}
+
+.fo-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.final-statement {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 16px 16px 0;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fs-line {
+  font-size: 19px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+}
+
+.fs-line strong {
+  color: var(--white);
+  font-weight: 700;
+}
+
+.fs-line-accent {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.fs-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 0;
+}
+
+.fs-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.45;
+}
+
+.fs-list li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+}
+
+.final-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 32px 72px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.final-footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wordmark-final {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: 0.08em;
+}
+
+.tagline-final {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+
+.final-footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+
+/* ============================================================
+   PRINT / EXPORT STYLES
+   ============================================================ */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+    gap: 0;
+  }
+
+  .strategy-page {
+    page-break-after: always;
+    break-after: page;
+    margin: 0;
+  }
+
+  .bg-glow {
+    display: none;
+  }
+}
