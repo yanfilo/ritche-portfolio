@@ -579,6 +579,17 @@
     }
     .shot-cap { font-size: 0.68rem; color: rgba(255,255,255,0.52); text-align: center; margin-top: 5px; line-height: 1.4; }
 
+    /* ── CS4 FEATURED + 2x2 LAYOUT ────────────────── */
+    .cs-subtitle {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      margin-top: -18px; margin-bottom: 24px;
+      letter-spacing: 0.1px;
+    }
+    .shots-featured { display: flex; flex-direction: column; gap: 12px; }
+    .shots-featured .shot-feat img { height: 152px; }
+    .shots-featured .shots-grid .shot img { height: 80px; }
+
     /* ── CS3 CATEGORY THUMBNAILS ──────────────────── */
     .cs3-grid { gap: 12px; }
     .cs3-thumb-wrap { display: flex; flex-direction: column; }
@@ -1563,6 +1574,72 @@
                 <p class="shot-cap">Turning tracker inputs into weekly decisions, priorities, and accountable next actions.</p>
               </div>
 
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CS4: AI Automation Workflow Demo — functional local prototype -->
+      <div class="case-study" data-reveal>
+        <div class="cs-bar">
+          <span class="cs-badge cs-badge-demo">Functional Local Prototype</span>
+          <span class="cs-bar-note">🔒 Simulated sample data only — no live connections · Built with Claude Code · Streamlit</span>
+        </div>
+        <div class="cs-body">
+          <div class="cs-text">
+            <div class="cs-num">04</div>
+            <h3 class="cs-title">AI Automation Workflow Demo</h3>
+            <p class="cs-subtitle">Email Triage + Revenue Dashboard</p>
+            <div class="cs-row">
+              <div class="cs-lbl">Situation</div>
+              <p class="cs-val">Many service businesses manage leads, client emails, CRM exports, revenue tracking, commissions, and daily reporting across separate tools. This creates missed follow-ups, scattered visibility, and manual reporting work.</p>
+            </div>
+            <div class="cs-row">
+              <div class="cs-lbl">What Was Built</div>
+              <p class="cs-val">A working local Streamlit prototype that simulates an AI-assisted operations workflow. It includes email triage, sender whitelist/blacklist rules, suggested draft replies, a CRM-style revenue dashboard, commission calculator, deal table, and downloadable end-of-day report.</p>
+            </div>
+            <div class="cs-row">
+              <div class="cs-lbl">Tools Used</div>
+              <div class="cs-chips">
+                <span class="cs-chip">Claude Code</span>
+                <span class="cs-chip">Python</span>
+                <span class="cs-chip">Streamlit</span>
+                <span class="cs-chip">Pandas</span>
+                <span class="cs-chip">Plotly</span>
+                <span class="cs-chip">VS Code</span>
+                <span class="cs-chip">CSV sample data</span>
+              </div>
+            </div>
+            <div class="cs-row">
+              <div class="cs-lbl">What It Proves</div>
+              <p class="cs-val">I can turn a business workflow into a functional app prototype with structured inputs, processing rules, dashboard outputs, QA checks, and reusable documentation — and show how manual CSV inputs could later be replaced by CRM, email, Google Sheets, or API integrations.</p>
+            </div>
+          </div>
+          <div class="cs-shots">
+            <div class="cs-shots-lbl">Screenshots</div>
+            <div class="shots-featured">
+              <div>
+                <div class="shot shot-feat demo" data-lb-slides='[{"src":"images/proj04-email-triage-1.jpg","title":"Email Triage — Prioritized inbox with sender status, message preview, and suggested draft reply.","desc":""},{"src":"images/proj04-email-triage-2.jpg","title":"Email Triage — Suggested draft reply detail.","desc":""}]'><img src="images/proj04-email-triage-1.jpg" alt="Email triage prioritized inbox with suggested draft reply"></div>
+                <p class="shot-cap">Email triage</p>
+              </div>
+              <div class="shots-grid">
+                <div>
+                  <div class="shot" data-lb-slides='[{"src":"images/proj04-sender-rules.jpg","title":"Sender Rules — Whitelist and blacklist controls for managing trusted and blocked senders.","desc":""}]'><img src="images/proj04-sender-rules.jpg" alt="Sender whitelist and blacklist rules"></div>
+                  <p class="shot-cap">Sender rules</p>
+                </div>
+                <div>
+                  <div class="shot" data-lb-slides='[{"src":"images/proj04-revenue-dashboard-1.jpg","title":"Revenue Dashboard — CRM-style pipeline and revenue summary from simulated deal data.","desc":""},{"src":"images/proj04-revenue-dashboard-2.jpg","title":"Revenue Dashboard — Deal table from simulated data.","desc":""},{"src":"images/proj04-revenue-dashboard-3.jpg","title":"Revenue Dashboard — Pipeline and revenue charts.","desc":""}]'><img src="images/proj04-revenue-dashboard-1.jpg" alt="CRM-style revenue dashboard from simulated deal data"></div>
+                  <p class="shot-cap">Revenue dashboard</p>
+                </div>
+                <div>
+                  <div class="shot" data-lb-slides='[{"src":"images/proj04-commission-1.jpg","title":"Commission Calculator — Commission payout summary based on closed-won deals.","desc":""},{"src":"images/proj04-commission-2.jpg","title":"Commission Calculator — Payout detail.","desc":""}]'><img src="images/proj04-commission-1.jpg" alt="Commission calculator payout summary"></div>
+                  <p class="shot-cap">Commission calculator</p>
+                </div>
+                <div>
+                  <div class="shot" data-lb-slides='[{"src":"images/proj04-eod-report-1.jpg","title":"End-of-Day Report — Downloadable daily summary with recommended follow-up actions.","desc":""},{"src":"images/proj04-eod-report-2.jpg","title":"End-of-Day Report — Daily summary detail.","desc":""}]'><img src="images/proj04-eod-report-1.jpg" alt="End-of-day report with recommended follow-up actions"></div>
+                  <p class="shot-cap">End-of-day report</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
