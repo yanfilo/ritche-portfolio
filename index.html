@@ -760,6 +760,56 @@
     }
     .about-block-text { font-size: 0.93rem; color: rgba(255,255,255,0.78); line-height: 1.8; }
 
+    /* ── RECOMMENDATIONS ──────────────────────────── */
+    #recommendations { background: #080F1C; }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 18px; align-items: stretch;
+    }
+    .testimonial-card {
+      display: flex; flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px; padding: 30px 26px 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .testimonial-card:hover {
+      border-color: rgba(91,191,218,0.3);
+      box-shadow: 0 8px 28px rgba(26,127,158,0.12);
+      transform: translateY(-2px);
+    }
+    .testimonial-mark {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.6rem; line-height: 0.6;
+      color: rgba(91,191,218,0.28);
+      margin-bottom: 14px; height: 0.7em;
+    }
+    .testimonial-quote {
+      flex: 1 1 auto;
+      font-size: 0.92rem; color: rgba(255,255,255,0.80);
+      line-height: 1.78; margin-bottom: 22px;
+    }
+    .testimonial-attr {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 16px;
+    }
+    .testimonial-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.02rem; font-weight: 700;
+      color: var(--white); letter-spacing: -0.2px;
+      margin-bottom: 5px;
+    }
+    .testimonial-title {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+      line-height: 1.5; margin-bottom: 11px;
+    }
+    .testimonial-source {
+      display: inline-block;
+      font-size: 0.63rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: rgba(196,146,46,0.9);
+    }
+
     /* ── CONTACT ──────────────────────────────────── */
     #contact {
       position: relative;
@@ -995,6 +1045,9 @@
       .tools-grid { grid-template-columns: 1fr 1fr; }
       .about-wrap { grid-template-columns: 1fr; gap: 40px; }
       .about-photo { max-width: 200px; margin: 0 auto; }
+
+      /* Recommendations */
+      .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
 
       /* Contact */
       .contact-links { gap: 20px; flex-wrap: wrap; }
@@ -1856,6 +1909,47 @@
             <p class="about-block-text">I work from a dedicated home office in the Philippines with a 400Mbps fiber connection, generator backup, dual monitors, noise-cancelling headset, and HD webcam. I maintain reliable overlap hours with US, UK, and AU-based teams and am fully set up for asynchronous collaboration.</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ RECOMMENDATIONS ════════════════ -->
+  <section id="recommendations" class="section">
+    <div class="container">
+      <div data-reveal>
+        <div class="label center">Testimonials</div>
+        <h2 class="heading center">Professional Recommendations</h2>
+        <div class="center"><span class="heading-rule"></span></div>
+        <p class="subheading center">Feedback from former SABIC colleagues and collaborators across learning, operations, communication, and project support.</p>
+      </div>
+      <div class="testimonials-grid">
+        <figure class="testimonial-card" data-reveal data-delay="1">
+          <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial-quote">Ian provided valuable coordination and administrative support during the establishment and operationalization of SABIC Academy. He was highly reliable, organized, professional, and consistent.</blockquote>
+          <figcaption class="testimonial-attr">
+            <div class="testimonial-name">Mohammed Al Asmari</div>
+            <div class="testimonial-title">Former Senior Manager, Global Supply Chain Management Programs, L&amp;D</div>
+            <span class="testimonial-source">LinkedIn Recommendation</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonial-card" data-reveal data-delay="2">
+          <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial-quote">Ritche&rsquo;s ability to prioritise and focus on execution is a key strength, as is his ability to understand the big picture and translate it into execution.</blockquote>
+          <figcaption class="testimonial-attr">
+            <div class="testimonial-name">John Coburn</div>
+            <div class="testimonial-title">Former Learning &amp; Talent Development Leader, Europe</div>
+            <span class="testimonial-source">LinkedIn Recommendation</span>
+          </figcaption>
+        </figure>
+        <figure class="testimonial-card" data-reveal data-delay="3">
+          <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote class="testimonial-quote">Ian provided highly capable executive and operations support to the Chief Learning Officer&rsquo;s office and leadership team. He managed communications, coordinated meetings, and supported both physical and virtual engagements across Saudi Arabia and globally.</blockquote>
+          <figcaption class="testimonial-attr">
+            <div class="testimonial-name">Mohammed Elyas</div>
+            <div class="testimonial-title">Former Middle East &amp; Africa Learning Manager</div>
+            <span class="testimonial-source">Submitted Testimonial</span>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
