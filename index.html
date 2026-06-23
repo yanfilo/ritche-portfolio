@@ -812,73 +812,6 @@
       color: rgba(196,146,46,0.9);
     }
 
-    /* ── BOOK A CALL ──────────────────────────────── */
-    #book {
-      position: relative;
-      background: #070E1B;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      padding: 108px 40px 40px;
-      overflow: hidden;
-    }
-    #book::after {
-      content: '';
-      position: absolute;
-      width: 620px; height: 620px;
-      background: radial-gradient(circle, rgba(184,132,30,0.07) 0%, transparent 65%);
-      top: 42%; left: 50%; transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-    .book-inner { max-width: 1000px; margin: 0 auto; padding-bottom: 16px; text-align: center; position: relative; z-index: 1; }
-    #book .heading-rule { margin-left: auto; margin-right: auto; }
-    .book-sub {
-      font-size: 0.97rem; color: rgba(255,255,255,0.62);
-      line-height: 1.75; margin: 0 auto 22px; max-width: 640px;
-    }
-    .book-meta {
-      display: flex; justify-content: center; flex-wrap: wrap;
-      gap: 10px 26px; margin-bottom: 42px;
-    }
-    .book-meta span {
-      font-size: 0.8rem; color: rgba(255,255,255,0.58);
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .book-meta span::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%;
-      background: var(--gold); display: inline-block; flex: none;
-    }
-    /* Embed frame — holds the Google or Cal.com widget */
-    .book-embed {
-      position: relative;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
-      overflow: hidden;
-    }
-    .book-embed iframe { width: 100% !important; min-height: 360px; border: 0; border-radius: 10px; display: block; }
-    /* Placeholder shown until a real embed snippet is pasted in */
-    .book-placeholder {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 14px; text-align: center;
-      min-height: 432px; padding: 40px 32px;
-      border: 1px dashed rgba(255,255,255,0.14);
-      border-radius: 10px;
-    }
-    .book-placeholder svg { width: 46px; height: 46px; stroke: var(--gold); opacity: 0.85; }
-    .book-ph-title {
-      font-family: 'Outfit', sans-serif; font-weight: 700;
-      font-size: 1.05rem; color: rgba(255,255,255,0.82);
-    }
-    .book-ph-note { font-size: 0.82rem; max-width: 440px; line-height: 1.7; color: rgba(255,255,255,0.5); }
-    .book-fallback { margin-top: 26px; font-size: 0.83rem; color: rgba(255,255,255,0.5); }
-    .book-fallback a {
-      color: rgba(255,255,255,0.82);
-      border-bottom: 1px solid rgba(184,132,30,0.5);
-      padding-bottom: 1px; transition: color 0.2s, border-color 0.2s;
-    }
-    .book-fallback a:hover { color: var(--white); border-color: var(--gold); opacity: 1; }
-
     /* ── CONTACT ──────────────────────────────────── */
     #contact {
       position: relative;
@@ -1072,9 +1005,7 @@
     @media (max-width: 768px) {
       .container, .section { padding-left: 24px; padding-right: 24px; }
       .section { padding-top: 64px; padding-bottom: 64px; }
-      .sticky-nav, #hero, #trust-bar, #book, #contact, #footer { padding-left: 24px; padding-right: 24px; }
-      #book { padding-top: 64px; padding-bottom: 36px; }
-      .book-embed iframe { min-height: 360px; }
+      .sticky-nav, #hero, #trust-bar, #contact, #footer { padding-left: 24px; padding-right: 24px; }
 
       /* Nav */
       .nav-hamburger { display: flex; }
@@ -1129,7 +1060,7 @@
 
     @media (max-width: 480px) {
       .container, .section { padding-left: 16px; padding-right: 16px; }
-      .sticky-nav, #hero, #trust-bar, #book, #contact, #footer { padding-left: 16px; padding-right: 16px; }
+      .sticky-nav, #hero, #trust-bar, #contact, #footer { padding-left: 16px; padding-right: 16px; }
 
       .hero-name { font-size: 2.1rem; }
       .hero-ctas { flex-direction: column; align-items: stretch; }
@@ -1162,8 +1093,7 @@
     <a href="#work">Work</a>
     <a href="#tools">Tools</a>
     <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#book" class="m-cta">Book a Call</a>
+    <a href="#contact" class="m-cta">Hire Me</a>
   </div>
 
   <!-- NAV -->
@@ -1174,8 +1104,7 @@
       <a href="#work">Work</a>
       <a href="#tools">Tools</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="#book" class="nav-cta">Book a Call</a>
+      <a href="#contact" class="nav-cta">Hire Me</a>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -2030,46 +1959,6 @@
   </section>
 
   <!-- ════════════════ CONTACT ════════════════ -->
-  <!-- ════════════════ BOOK A CALL ════════════════ -->
-  <section id="book">
-    <div class="book-inner" data-reveal>
-      <div class="label label-gold center">Book a Call</div>
-      <h2 class="heading">Grab a time that works for you</h2>
-      <span class="heading-rule"></span>
-      <p class="book-sub">Pick a slot below for a short intro call. We'll talk through your CRM, funnel, or marketing-ops setup and where I can help. No prep needed.</p>
-      <div class="book-meta">
-        <span>30-minute intro call</span>
-        <span>Google Meet link sent on booking</span>
-        <span>Your time zone, auto-detected</span>
-      </div>
-
-      <div class="book-embed">
-        <!-- Cal.com inline embed (event type: 30min). To swap to a different
-             calendar later, replace everything between the "begins"/"ends"
-             markers below with the new embed snippet. -->
-        <!-- Cal inline embed code begins -->
-        <div class="book-embed-frame" id="my-cal-inline-30min"></div>
-        <script type="text/javascript">
-          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-        Cal("init", "30min", {origin:"https://app.cal.com"});
-        Cal.config = Cal.config || {};
-        Cal.config.forwardQueryParams = true;
-
-          Cal.ns["30min"]("inline", {
-            elementOrSelector:"#my-cal-inline-30min",
-            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"dark"},
-            calLink: "ritche-ian-soldevilla-jjthlc/30min",
-          });
-
-          Cal.ns["30min"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#B8841E"},"dark":{"cal-brand":"#D89920"}},"hideEventTypeDetails":false,"layout":"month_view"});
-          </script>
-        <!-- Cal inline embed code ends -->
-      </div>
-
-      <p class="book-fallback">Prefer email? Reach me at <a href="mailto:soldevillarim@gmail.com">soldevillarim@gmail.com</a>.</p>
-    </div>
-  </section>
-
   <section id="contact">
     <div class="contact-inner" data-reveal>
       <h2 class="contact-hed">Ready to bring structure to your marketing operations?</h2>
