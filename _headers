@@ -11,6 +11,14 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  # 1-year HSTS, applied to all subdomains. Every subdomain (current and
+  # future project subdomains) must serve valid HTTPS. Cloudflare provisions
+  # certs automatically for proxied records, so this stays safe as long as new
+  # subdomains remain proxied and HTTPS. "preload" is intentionally omitted:
+  # it is a stickier, hard-to-reverse commitment. Add it deliberately if ever
+  # wanted. If HSTS is also enabled in the Cloudflare dashboard, disable it
+  # there so this file is the single source of truth (avoids a duplicate header).
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
 
 /images/*
   Content-Disposition: inline

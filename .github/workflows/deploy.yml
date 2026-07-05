@@ -1,9 +1,10 @@
 name: Deploy to Cloudflare Workers
 
+# Manual-only. A push to master no longer deploys on its own.
+# To ship: GitHub repo -> Actions tab -> "Deploy to Cloudflare Workers"
+# -> "Run workflow". Nothing reaches the live site without you clicking that.
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 
 jobs:
   deploy:
